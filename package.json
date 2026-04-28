@@ -1,0 +1,22 @@
+{
+  "name": "zodiac-horoscope-snap",
+  "version": "1.0.0",
+  "description": "Monthly horoscope Farcaster Snap — 12 zodiac signs with finance insights & stoic quotes",
+  "type": "module",
+  "scripts": {
+    "dev": "SKIP_JFS_VERIFICATION=true tsx watch src/server.ts",
+    "build": "tsc --noEmit",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@farcaster/snap": "^2.0.0",
+    "@farcaster/snap-hono": "^2.0.0",
+    "hono": "^4.7.0"
+  },
+  "devDependencies": {
+    "@hono/node-server": "^1.14.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}

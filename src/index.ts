@@ -1,0 +1,151 @@
+import { Hono } from "hono";
+import { registerSnapHandler } from "@farcaster/snap-hono";
+import { getMonthlyHoroscope, ZODIAC_SIGNS, type ZodiacSign } from "./horoscope.js";
+
+const app = new Hono();
+
+function snapBase(req: Request): string {
+  const fromEnv = process.env.SNAP_PUBLIC_BASE_URL?.trim();
+  if (fromEnv) return fromEnv.replace(/\/$/, "");
+  const host = req.headers.get("host") ?? "localhost:3003";
+  const isLocal = /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host);
+  return `${isLocal ? "http" : "https"}://${host}`;
+}
+
+registerSnapHandler(
+  app,
+  async (ctx) => {
+    const base = snapBase(ctx.request);
+    const url = new URL(ctx.request.url);
+    const selectedSign = url.searchParams.get("sign") as ZodiacSign | null;
+
+    // Detail view — user tapped a zodiac sign
+    if (selectedSign && ZODIAC_SIGNS.includes(selectedSign)) {
+      const data = getMonthlyHoroscope(selectedSign);
+      return {
+        version: "2.0",
+        theme: { accent: "purple" },
+        ui: {
+          root: "page",
+          elements: {
+            page: {
+              type: "stack",
+              props: {},
+              children: ["header", "sep", "finance", "sep2", "quote", "back-btn"],
+            },
+            header: {
+              type: "text",
+              props: {
+                content: `${data.emoji} ${data.name} — April 2026`,
+                weight: "bold",
+              },
+            },
+            sep: {
+              type: "text",
+              props: { content: "💰 Finance & Life", weight: "bold", size: "sm" },
+            },
+            finance: {
+              type: "text",
+              props: { content: data.finance, size: "sm" },
+            },
+            sep2: {
+              type: "text",
+              props: { content: "📖 Stoic Quote", weight: "bold", size: "sm" },
+            },
+            quote: {
+              type: "text",
+              props: { content: `"${data.stoic}"`, size: "sm" },
+            },
+            "back-btn": {
+              type: "button",
+              props: { label: "← All Signs", variant: "primary" },
+              on: {
+                press: {
+                  action: "submit",
+                  params: { target: `${base}/` },
+                },
+              },
+            },
+          },
+        },
+      };
+    }
+
+    // Grid view — show all 12 zodiac signs in a 4×3 grid
+    // Build elements for all 12 sign buttons
+    const signButtons: Record<string, object> = {};
+    const row1: string[] = [];
+    const row2: string[] = [];
+    const row3: string[] = [];
+
+    ZODIAC_SIGNS.forEach((sign, i) => {
+      const data = getMonthlyHoroscope(sign);
+      const id = `btn-${sign}`;
+      signButtons[id] = {
+        type: "button",
+        props: { label: `${data.emoji} ${data.shortName}` },
+        on: {
+          press: {
+            action: "submit",
+            params: { target: `${base}/?sign=${sign}` },
+          },
+        },
+      };
+      if (i < 4) row1.push(id);
+      else if (i < 8) row2.push(id);
+      else row3.push(id);
+    });
+
+    return {
+      version: "2.0",
+      theme: { accent: "purple" },
+      ui: {
+        root: "page",
+        elements: {
+          page: {
+            type: "stack",
+            props: {},
+            children: ["title", "subtitle", "grid-r1", "grid-r2", "grid-r3", "footer"],
+          },
+          title: {
+            type: "text",
+            props: { content: "✨ Monthly Horoscope — April 2026", weight: "bold" },
+          },
+          subtitle: {
+            type: "text",
+            props: {
+              content: "Tap your sign for finance insights & stoic wisdom",
+              size: "sm",
+            },
+          },
+          "grid-r1": {
+            type: "stack",
+            props: { direction: "horizontal" },
+            children: row1,
+          },
+          "grid-r2": {
+            type: "stack",
+            props: { direction: "horizontal" },
+            children: row2,
+          },
+          "grid-r3": {
+            type: "stack",
+            props: { direction: "horizontal" },
+            children: row3,
+          },
+          footer: {
+            type: "text",
+            props: { content: "Updated monthly · Built on Farcaster", size: "sm" },
+          },
+          ...signButtons,
+        },
+      },
+    };
+  },
+  {
+    title: "Monthly Horoscope",
+    description: "12 zodiac signs · Finance insights · Stoic quotes · April 2026",
+  },
+);
+
+export default app;
