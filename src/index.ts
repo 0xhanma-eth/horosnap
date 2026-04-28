@@ -19,9 +19,13 @@ registerSnapHandler(
     const url = new URL(ctx.request.url);
     const selectedSign = url.searchParams.get("sign") as ZodiacSign | null;
 
-    // Detail view — user tapped a zodiac sign
     if (selectedSign && ZODIAC_SIGNS.includes(selectedSign)) {
       const data = getMonthlyHoroscope(selectedSign);
+      const shareText =
+        `${data.emoji} ${data.name} horoscope — April 2026\n\n` +
+        `💰 ${data.finance.slice(0, 100)}...\n\n` +
+        `📖 "${data.stoic.slice(0, 80)}..."\n\nCheck yours 👇`;
+
       return {
         version: "2.0",
         theme: { accent: "purple" },
@@ -31,38 +35,26 @@ registerSnapHandler(
             page: {
               type: "stack",
               props: {},
-              children: ["header", "sep", "finance", "sep2", "quote", "back-btn"],
+              children: ["header", "sep", "finance", "sep2", "quote", "btn-row"],
             },
-            header: {
-              type: "text",
-              props: {
-                content: `${data.emoji} ${data.name} — April 2026`,
-                weight: "bold",
-              },
-            },
-            sep: {
-              type: "text",
-              props: { content: "💰 Finance & Life", weight: "bold", size: "sm" },
-            },
-            finance: {
-              type: "text",
-              props: { content: data.finance, size: "sm" },
-            },
-            sep2: {
-              type: "text",
-              props: { content: "📖 Stoic Quote", weight: "bold", size: "sm" },
-            },
-            quote: {
-              type: "text",
-              props: { content: `"${data.stoic}"`, size: "sm" },
-            },
+            header: { type: "text", props: { content: `${data.emoji} ${data.name} — April 2026`, weight: "bold" } },
+            sep: { type: "text", props: { content: "💰 Finance & Life", weight: "bold", size: "sm" } },
+            finance: { type: "text", props: { content: data.finance, size: "sm" } },
+            sep2: { type: "text", props: { content: "📖 Stoic Quote", weight: "bold", size: "sm" } },
+            quote: { type: "text", props: { content: `"${data.stoic}"`, size: "sm" } },
+            "btn-row": { type: "stack", props: { direction: "horizontal" }, children: ["back-btn", "share-btn"] },
             "back-btn": {
               type: "button",
-              props: { label: "← All Signs", variant: "primary" },
+              props: { label: "← All Signs" },
+              on: { press: { action: "submit", params: { target: `${base}/` } } },
+            },
+            "share-btn": {
+              type: "button",
+              props: { label: "🔁 Share", variant: "primary" },
               on: {
                 press: {
-                  action: "submit",
-                  params: { target: `${base}/` },
+                  action: "compose_cast",
+                  params: { text: shareText, embeds: [`${base}/?sign=${selectedSign}`] },
                 },
               },
             },
@@ -71,8 +63,7 @@ registerSnapHandler(
       };
     }
 
-    // Grid view — show all 12 zodiac signs in a 4×3 grid
-    // Build elements for all 12 sign buttons
+    // Grid view
     const signButtons: Record<string, object> = {};
     const row1: string[] = [];
     const row2: string[] = [];
@@ -84,12 +75,7 @@ registerSnapHandler(
       signButtons[id] = {
         type: "button",
         props: { label: `${data.emoji} ${data.shortName}` },
-        on: {
-          press: {
-            action: "submit",
-            params: { target: `${base}/?sign=${sign}` },
-          },
-        },
+        on: { press: { action: "submit", params: { target: `${base}/?sign=${sign}` } } },
       };
       if (i < 4) row1.push(id);
       else if (i < 8) row2.push(id);
@@ -107,36 +93,12 @@ registerSnapHandler(
             props: {},
             children: ["title", "subtitle", "grid-r1", "grid-r2", "grid-r3", "footer"],
           },
-          title: {
-            type: "text",
-            props: { content: "✨ Monthly Horoscope — April 2026", weight: "bold" },
-          },
-          subtitle: {
-            type: "text",
-            props: {
-              content: "Tap your sign for finance insights & stoic wisdom",
-              size: "sm",
-            },
-          },
-          "grid-r1": {
-            type: "stack",
-            props: { direction: "horizontal" },
-            children: row1,
-          },
-          "grid-r2": {
-            type: "stack",
-            props: { direction: "horizontal" },
-            children: row2,
-          },
-          "grid-r3": {
-            type: "stack",
-            props: { direction: "horizontal" },
-            children: row3,
-          },
-          footer: {
-            type: "text",
-            props: { content: "Updated monthly · Built on Farcaster", size: "sm" },
-          },
+          title: { type: "text", props: { content: "✨ Monthly Horoscope — April 2026", weight: "bold" } },
+          subtitle: { type: "text", props: { content: "Tap your sign for finance insights & stoic wisdom", size: "sm" } },
+          "grid-r1": { type: "stack", props: { direction: "horizontal" }, children: row1 },
+          "grid-r2": { type: "stack", props: { direction: "horizontal" }, children: row2 },
+          "grid-r3": { type: "stack", props: { direction: "horizontal" }, children: row3 },
+          footer: { type: "text", props: { content: "Updated monthly · Built on Farcaster", size: "sm" } },
           ...signButtons,
         },
       },
