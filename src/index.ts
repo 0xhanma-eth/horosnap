@@ -4,7 +4,7 @@ import { getMonthlyHoroscope, ZODIAC_SIGNS, type ZodiacSign } from "./horoscope.
 
 const app = new Hono();
 
-const CREATOR_HANDLE = "@hanma.base.eth";
+const CREATOR_HANDLE = "@hanma";
 const CREATOR_PROFILE = "https://farcaster.xyz/hanma.base.eth";
 
 function snapBase(req: Request): string {
@@ -26,7 +26,7 @@ registerSnapHandler(
     if (selectedSign && ZODIAC_SIGNS.includes(selectedSign)) {
       const data = getMonthlyHoroscope(selectedSign);
       const shareText =
-        `${data.emoji} ${data.name} horoscope — April 2026\n\n` +
+        `${data.emoji} ${data.name} horoscope — April 29, 2026\n\n` +
         `💰 ${data.finance.slice(0, 100)}...\n\n` +
         `📖 "${data.stoic.slice(0, 80)}..."\n\n` +
         `by ${CREATOR_HANDLE} 👇`;
@@ -44,7 +44,7 @@ registerSnapHandler(
             },
             header: {
               type: "text",
-              props: { content: `${data.emoji} ${data.name} — April 2026`, weight: "bold" },
+              props: { content: `${data.emoji} ${data.name} — April 29, 2026`, weight: "bold" },
             },
             sep: {
               type: "text",
@@ -145,7 +145,7 @@ registerSnapHandler(
           },
           title: {
             type: "text",
-            props: { content: "✨ Monthly Horoscope — April 2026", weight: "bold" },
+            props: { content: "✨ Monthly Horoscope — April 29, 2026", weight: "bold" },
           },
           subtitle: {
             type: "text",
