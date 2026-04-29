@@ -94,7 +94,7 @@ registerSnapHandler(
             },
             "creator-btn": {
               type: "button",
-              props: { label: "Visit Profile", variant: "link" },
+              props: { label: "Visit Profile", variant: "primary" },
               on: {
                 press: {
                   action: "open_url",
@@ -160,7 +160,7 @@ registerSnapHandler(
           },
           "footer-btn": {
             type: "button",
-            props: { label: "Follow", variant: "link" },
+            props: { label: "Follow", variant: "primary" },
             on: {
               press: {
                 action: "open_url",
