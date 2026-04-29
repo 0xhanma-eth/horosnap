@@ -40,7 +40,7 @@ registerSnapHandler(
             page: {
               type: "stack",
               props: {},
-              children: ["header", "sep", "finance", "sep2", "quote", "btn-row", "creator-label"],
+              children: ["header", "sep", "finance", "sep2", "quote", "btn-row", "creator-row"],
             },
             header: {
               type: "text",
@@ -85,12 +85,27 @@ registerSnapHandler(
                 },
               },
             },
-            // Attribution as plain text with profile URL visible
+            // Attribution row with follow button
+            "creator-row": {
+              type: "stack",
+              props: { direction: "horizontal" },
+              children: ["creator-label", "follow-btn"],
+            },
             "creator-label": {
               type: "text",
-              props: {
-                content: `✨ Created by ${CREATOR_HANDLE} · ${CREATOR_PROFILE}`,
-                size: "sm",
+              props: { content: `✨ by ${CREATOR_HANDLE}`, size: "sm" },
+            },
+            "follow-btn": {
+              type: "button",
+              props: { label: "👤 Follow", variant: "primary" },
+              on: {
+                press: {
+                  action: "compose_cast",
+                  params: {
+                    text: `Following ${CREATOR_HANDLE} for monthly horoscopes 🔮\n\nCheck yours 👇`,
+                    embeds: [`${base}/`],
+                  },
+                },
               },
             },
           },
@@ -126,7 +141,7 @@ registerSnapHandler(
           page: {
             type: "stack",
             props: {},
-            children: ["title", "subtitle", "grid-r1", "grid-r2", "grid-r3", "footer"],
+            children: ["title", "subtitle", "grid-r1", "grid-r2", "grid-r3", "footer-row"],
           },
           title: {
             type: "text",
@@ -139,11 +154,30 @@ registerSnapHandler(
           "grid-r1": { type: "stack", props: { direction: "horizontal" }, children: row1 },
           "grid-r2": { type: "stack", props: { direction: "horizontal" }, children: row2 },
           "grid-r3": { type: "stack", props: { direction: "horizontal" }, children: row3 },
+          "footer-row": {
+            type: "stack",
+            props: { direction: "horizontal" },
+            children: ["footer-text", "footer-follow-btn"],
+          },
           footer: {
             type: "text",
-            props: {
-              content: `Updated monthly · by ${CREATOR_HANDLE} · ${CREATOR_PROFILE}`,
-              size: "sm",
+            props: { content: "" },
+          },
+          "footer-text": {
+            type: "text",
+            props: { content: `Updated monthly · by ${CREATOR_HANDLE}`, size: "sm" },
+          },
+          "footer-follow-btn": {
+            type: "button",
+            props: { label: "👤 Follow", variant: "primary" },
+            on: {
+              press: {
+                action: "compose_cast",
+                params: {
+                  text: `Following ${CREATOR_HANDLE} for monthly horoscopes 🔮\n\nCheck yours 👇`,
+                  embeds: [`${base}/`],
+                },
+              },
             },
           },
           ...signButtons,
