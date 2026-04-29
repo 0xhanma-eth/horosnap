@@ -4,6 +4,9 @@ import { getMonthlyHoroscope, ZODIAC_SIGNS, type ZodiacSign } from "./horoscope.
 
 const app = new Hono();
 
+const CREATOR_URL = "https://farcaster.xyz/hanma.base.eth";
+const CREATOR_HANDLE = "@hanma";
+
 function snapBase(req: Request): string {
   const fromEnv = process.env.SNAP_PUBLIC_BASE_URL?.trim();
   if (fromEnv) return fromEnv.replace(/\/$/, "");
@@ -19,12 +22,14 @@ registerSnapHandler(
     const url = new URL(ctx.request.url);
     const selectedSign = url.searchParams.get("sign") as ZodiacSign | null;
 
+    // ── Detail view ──────────────────────────────────────────
     if (selectedSign && ZODIAC_SIGNS.includes(selectedSign)) {
       const data = getMonthlyHoroscope(selectedSign);
       const shareText =
         `${data.emoji} ${data.name} horoscope — April 2026\n\n` +
         `💰 ${data.finance.slice(0, 100)}...\n\n` +
-        `📖 "${data.stoic.slice(0, 80)}..."\n\nCheck yours 👇`;
+        `📖 "${data.stoic.slice(0, 80)}..."\n\n` +
+        `by ${CREATOR_HANDLE} 👇`;
 
       return {
         version: "2.0",
@@ -35,14 +40,33 @@ registerSnapHandler(
             page: {
               type: "stack",
               props: {},
-              children: ["header", "sep", "finance", "sep2", "quote", "btn-row"],
+              children: ["header", "sep", "finance", "sep2", "quote", "btn-row", "creator-row"],
             },
-            header: { type: "text", props: { content: `${data.emoji} ${data.name} — April 2026`, weight: "bold" } },
-            sep: { type: "text", props: { content: "💰 Finance & Life", weight: "bold", size: "sm" } },
-            finance: { type: "text", props: { content: data.finance, size: "sm" } },
-            sep2: { type: "text", props: { content: "📖 Stoic Quote", weight: "bold", size: "sm" } },
-            quote: { type: "text", props: { content: `"${data.stoic}"`, size: "sm" } },
-            "btn-row": { type: "stack", props: { direction: "horizontal" }, children: ["back-btn", "share-btn"] },
+            header: {
+              type: "text",
+              props: { content: `${data.emoji} ${data.name} — April 2026`, weight: "bold" },
+            },
+            sep: {
+              type: "text",
+              props: { content: "💰 Finance & Life", weight: "bold", size: "sm" },
+            },
+            finance: {
+              type: "text",
+              props: { content: data.finance, size: "sm" },
+            },
+            sep2: {
+              type: "text",
+              props: { content: "📖 Stoic Quote", weight: "bold", size: "sm" },
+            },
+            quote: {
+              type: "text",
+              props: { content: `"${data.stoic}"`, size: "sm" },
+            },
+            "btn-row": {
+              type: "stack",
+              props: { direction: "horizontal" },
+              children: ["back-btn", "share-btn"],
+            },
             "back-btn": {
               type: "button",
               props: { label: "← All Signs" },
@@ -58,12 +82,32 @@ registerSnapHandler(
                 },
               },
             },
+            // Attribution row — links to creator profile
+            "creator-row": {
+              type: "stack",
+              props: { direction: "horizontal" },
+              children: ["creator-label", "creator-btn"],
+            },
+            "creator-label": {
+              type: "text",
+              props: { content: `✨ Created by ${CREATOR_HANDLE}`, size: "sm" },
+            },
+            "creator-btn": {
+              type: "button",
+              props: { label: "Visit Profile", variant: "link" },
+              on: {
+                press: {
+                  action: "open_url",
+                  params: { url: CREATOR_URL },
+                },
+              },
+            },
           },
         },
       };
     }
 
-    // Grid view
+    // ── Grid view ─────────────────────────────────────────────
     const signButtons: Record<string, object> = {};
     const row1: string[] = [];
     const row2: string[] = [];
@@ -91,14 +135,39 @@ registerSnapHandler(
           page: {
             type: "stack",
             props: {},
-            children: ["title", "subtitle", "grid-r1", "grid-r2", "grid-r3", "footer"],
+            children: ["title", "subtitle", "grid-r1", "grid-r2", "grid-r3", "footer-row"],
           },
-          title: { type: "text", props: { content: "✨ Monthly Horoscope — April 2026", weight: "bold" } },
-          subtitle: { type: "text", props: { content: "Tap your sign for finance insights & stoic wisdom", size: "sm" } },
+          title: {
+            type: "text",
+            props: { content: "✨ Monthly Horoscope — April 2026", weight: "bold" },
+          },
+          subtitle: {
+            type: "text",
+            props: { content: "Tap your sign for finance insights & stoic wisdom", size: "sm" },
+          },
           "grid-r1": { type: "stack", props: { direction: "horizontal" }, children: row1 },
           "grid-r2": { type: "stack", props: { direction: "horizontal" }, children: row2 },
           "grid-r3": { type: "stack", props: { direction: "horizontal" }, children: row3 },
-          footer: { type: "text", props: { content: "Updated monthly · Built on Farcaster", size: "sm" } },
+          // Footer with creator attribution
+          "footer-row": {
+            type: "stack",
+            props: { direction: "horizontal" },
+            children: ["footer-text", "footer-btn"],
+          },
+          "footer-text": {
+            type: "text",
+            props: { content: `Updated monthly · by ${CREATOR_HANDLE}`, size: "sm" },
+          },
+          "footer-btn": {
+            type: "button",
+            props: { label: "Follow", variant: "link" },
+            on: {
+              press: {
+                action: "open_url",
+                params: { url: CREATOR_URL },
+              },
+            },
+          },
           ...signButtons,
         },
       },
@@ -106,7 +175,7 @@ registerSnapHandler(
   },
   {
     title: "Monthly Horoscope",
-    description: "12 zodiac signs · Finance insights · Stoic quotes · April 2026",
+    description: `12 zodiac signs · Finance insights · Stoic quotes · by ${CREATOR_HANDLE}`,
   },
 );
 
