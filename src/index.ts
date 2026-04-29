@@ -4,8 +4,8 @@ import { getMonthlyHoroscope, ZODIAC_SIGNS, type ZodiacSign } from "./horoscope.
 
 const app = new Hono();
 
-const CREATOR_URL = "https://farcaster.xyz/hanma.base.eth";
 const CREATOR_HANDLE = "@hanma";
+const CREATOR_PROFILE = "https://farcaster.xyz/hanma.base.eth";
 
 function snapBase(req: Request): string {
   const fromEnv = process.env.SNAP_PUBLIC_BASE_URL?.trim();
@@ -40,7 +40,7 @@ registerSnapHandler(
             page: {
               type: "stack",
               props: {},
-              children: ["header", "sep", "finance", "sep2", "quote", "btn-row", "creator-row"],
+              children: ["header", "sep", "finance", "sep2", "quote", "btn-row", "creator-label"],
             },
             header: {
               type: "text",
@@ -78,28 +78,19 @@ registerSnapHandler(
               on: {
                 press: {
                   action: "compose_cast",
-                  params: { text: shareText, embeds: [`${base}/?sign=${selectedSign}`] },
+                  params: {
+                    text: shareText,
+                    embeds: [`${base}/?sign=${selectedSign}`],
+                  },
                 },
               },
             },
-            // Attribution row — links to creator profile
-            "creator-row": {
-              type: "stack",
-              props: { direction: "horizontal" },
-              children: ["creator-label", "creator-btn"],
-            },
+            // Attribution as plain text with profile URL visible
             "creator-label": {
               type: "text",
-              props: { content: `✨ Created by ${CREATOR_HANDLE}`, size: "sm" },
-            },
-            "creator-btn": {
-              type: "button",
-              props: { label: "Visit Profile", variant: "primary" },
-              on: {
-                press: {
-                  action: "open_url",
-                  params: { url: CREATOR_URL },
-                },
+              props: {
+                content: `✨ Created by ${CREATOR_HANDLE} · ${CREATOR_PROFILE}`,
+                size: "sm",
               },
             },
           },
@@ -135,7 +126,7 @@ registerSnapHandler(
           page: {
             type: "stack",
             props: {},
-            children: ["title", "subtitle", "grid-r1", "grid-r2", "grid-r3", "footer-row"],
+            children: ["title", "subtitle", "grid-r1", "grid-r2", "grid-r3", "footer"],
           },
           title: {
             type: "text",
@@ -148,24 +139,11 @@ registerSnapHandler(
           "grid-r1": { type: "stack", props: { direction: "horizontal" }, children: row1 },
           "grid-r2": { type: "stack", props: { direction: "horizontal" }, children: row2 },
           "grid-r3": { type: "stack", props: { direction: "horizontal" }, children: row3 },
-          // Footer with creator attribution
-          "footer-row": {
-            type: "stack",
-            props: { direction: "horizontal" },
-            children: ["footer-text", "footer-btn"],
-          },
-          "footer-text": {
+          footer: {
             type: "text",
-            props: { content: `Updated monthly · by ${CREATOR_HANDLE}`, size: "sm" },
-          },
-          "footer-btn": {
-            type: "button",
-            props: { label: "Follow", variant: "primary" },
-            on: {
-              press: {
-                action: "open_url",
-                params: { url: CREATOR_URL },
-              },
+            props: {
+              content: `Updated monthly · by ${CREATOR_HANDLE} · ${CREATOR_PROFILE}`,
+              size: "sm",
             },
           },
           ...signButtons,
