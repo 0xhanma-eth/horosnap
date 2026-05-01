@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { registerSnapHandler } from "@farcaster/snap-hono";
-import { getMonthlyHoroscope, ZODIAC_SIGNS, type ZodiacSign } from "./horoscope.js";
+import { getMonthlyHoroscope, ZODIAC_SIGNS, CURRENT_DATE, type ZodiacSign } from "./horoscope.js";
 
 const app = new Hono();
 
@@ -26,7 +26,7 @@ registerSnapHandler(
     if (selectedSign && ZODIAC_SIGNS.includes(selectedSign)) {
       const data = getMonthlyHoroscope(selectedSign);
       const shareText =
-        `${data.emoji} ${data.name} horoscope — May 1, 2026\n\n` +
+        `${data.emoji} ${data.name} horoscope — ${CURRENT_DATE}\n\n` +
         `💰 ${data.finance.slice(0, 100)}...\n\n` +
         `📖 "${data.stoic.slice(0, 80)}..."\n\n` +
         `by ${CREATOR_HANDLE} 👇`;
@@ -44,7 +44,7 @@ registerSnapHandler(
             },
             header: {
               type: "text",
-              props: { content: `${data.emoji} ${data.name} — May 1, 2026`, weight: "bold" },
+              props: { content: `${data.emoji} ${data.name} — ${CURRENT_DATE}`, weight: "bold" },
             },
             sep: {
               type: "text",
@@ -145,7 +145,7 @@ registerSnapHandler(
           },
           title: {
             type: "text",
-            props: { content: "✨ Monthly Horoscope — May 1, 2026", weight: "bold" },
+            props: { content: `✨ Daily Horoscope — ${CURRENT_DATE}`, weight: "bold" },
           },
           subtitle: {
             type: "text",
