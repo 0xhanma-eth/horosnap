@@ -1,6 +1,6 @@
 // ============================================================
 // HOROSCOPE DATA — Update daily and push to GitHub
-// Current: April 29, 2026
+// Current: May 1, 2026
 // ============================================================
 
 export type ZodiacSign =
@@ -30,12 +30,7 @@ export interface HoroscopeData {
   stoic: string;
 }
 
-// ============================================================
-// UPDATE DAILY: Edit `finance` and `stoic` per sign.
-// Change the date label above and in index.ts title.
-// Push to GitHub → Vercel auto-deploys.
-// ============================================================
-export const CURRENT_DATE = "April 29, 2026";
+export const CURRENT_DATE = "May 1, 2026";
 
 const TODAY: Record<ZodiacSign, HoroscopeData> = {
   aries: {
@@ -43,43 +38,43 @@ const TODAY: Record<ZodiacSign, HoroscopeData> = {
     shortName: "Aries",
     emoji: "♈",
     finance:
-      "A bold financial decision you've been postponing demands action today. The window is narrowing — hesitation costs more than a wrong move. Trust your instincts but check the numbers.",
+      "May opens with fire in your ambition — channel it into one clear financial goal, not ten scattered ones. A new month means a clean slate; set your budget before spending a single dollar.",
     stoic:
-      "The impediment to action advances action. What stands in the way becomes the way. — Marcus Aurelius",
+      "Confine yourself to the present. — Marcus Aurelius",
   },
   taurus: {
     name: "Taurus",
     shortName: "Taurus",
     emoji: "♉",
     finance:
-      "Steady wins today — avoid any impulse purchases no matter how tempting. A small, boring saving habit started now becomes significant wealth by year's end.",
+      "May 1st is your power day — Venus blesses patient builders. Lock in a saving or investment plan today and commit to it for the full month. Consistency is your superpower.",
     stoic:
-      "Wealth consists not in having great possessions, but in having few wants. — Epictetus",
+      "He who is not satisfied with a little is satisfied with nothing. — Epictetus",
   },
   gemini: {
     name: "Gemini",
     shortName: "Gemini",
     emoji: "♊",
     finance:
-      "Two income opportunities appear — one fast, one slow. Choose the slow one today. Quick money rarely compounds; patient money always does.",
+      "A fresh month brings fresh conversations — one talk today could open an unexpected income door. Follow up on that idea you shelved in April; its time may finally have come.",
     stoic:
-      "First say to yourself what you would be, and then do what you have to do. — Epictetus",
+      "Make the best use of what is in your power, and take the rest as it happens. — Epictetus",
   },
   cancer: {
     name: "Cancer",
     shortName: "Cancer",
     emoji: "♋",
     finance:
-      "Emotional spending is your enemy today — step away from the cart. A family financial conversation long overdue needs to happen before the weekend.",
+      "May calls you to protect what you've built, not just grow it. Review your insurance, emergency fund, and safety nets today. Security is not boring — it is the foundation of every bold move.",
     stoic:
-      "He is a wise man who does not grieve for the things which he has not, but rejoices for those which he has. — Epictetus",
+      "The whole future lies in uncertainty: live immediately. — Seneca",
   },
   leo: {
     name: "Leo",
     shortName: "Leo",
     emoji: "♌",
     finance:
-      "Your visibility is your currency today — show up, speak up, be seen. One connection made today could translate into a financial opportunity within 30 days.",
+      "Your energy is magnetic on May 1st — use it to pitch, sell, or negotiate. A raise or new client is closer than you think. Step into the room and speak first.",
     stoic:
       "Luck is what happens when preparation meets opportunity. — Seneca",
   },
@@ -88,34 +83,34 @@ const TODAY: Record<ZodiacSign, HoroscopeData> = {
     shortName: "Virgo",
     emoji: "♍",
     finance:
-      "Review one financial account today — you will find something worth fixing. A small inefficiency you've ignored is quietly costing you more than you think.",
+      "New month, new spreadsheet. Virgo thrives on fresh systems — set up a May budget tracker today. One hour of planning now saves ten hours of stress later.",
     stoic:
-      "Waste no more time arguing about what a good man should be. Be one. — Marcus Aurelius",
+      "We suffer more in imagination than in reality. — Seneca",
   },
   libra: {
     name: "Libra",
     shortName: "Libra",
     emoji: "♎",
     finance:
-      "Balance your books before the month closes — April's final days are ideal for reconciliation. A pending payment owed to you should be followed up on today.",
+      "Balance is your theme for May — equal attention to earning and saving. A partnership opportunity surfaces early this month; evaluate it carefully before committing.",
     stoic:
-      "It is not the man who has too little, but the man who craves more, that is poor. — Seneca",
+      "Do not indulge in hopes which surpass your resources. — Epictetus",
   },
   scorpio: {
     name: "Scorpio",
     shortName: "Scorpio",
     emoji: "♏",
     finance:
-      "Something hidden in your finances comes to light today — face it head on. Ignoring a financial truth never makes it smaller; it always grows.",
+      "May 1st signals a financial transformation — something you let go of in April makes room for something better. Investigate one investment or debt strategy you've been avoiding.",
     stoic:
-      "True happiness is to enjoy the present, without anxious dependence upon the future. — Seneca",
+      "Begin at once to live, and count each separate day as a separate life. — Seneca",
   },
   sagittarius: {
     name: "Sagittarius",
     shortName: "Sagitt.",
     emoji: "♐",
     finance:
-      "Travel or education spending today is justified — it's an investment not an expense. However, keep it within a defined budget; enthusiasm without limits is just debt.",
+      "May opens big horizons — but pick one direction and run with it. Scattered energy = scattered results. A focused financial goal this month will yield more than five half-hearted ones.",
     stoic:
       "Man suffers more in imagination than in reality. — Seneca",
   },
@@ -124,7 +119,7 @@ const TODAY: Record<ZodiacSign, HoroscopeData> = {
     shortName: "Capric.",
     emoji: "♑",
     finance:
-      "End-of-month discipline pays off — review April's spending and extract one lesson. Your financial future is built by the decisions you make in quiet moments like today.",
+      "First of the month is your ritual — review last month's wins and losses with honest eyes. Capricorn's discipline compounds silently; trust the process even when results feel slow.",
     stoic:
       "Difficulties strengthen the mind, as labor does the body. — Seneca",
   },
@@ -133,7 +128,7 @@ const TODAY: Record<ZodiacSign, HoroscopeData> = {
     shortName: "Aquar.",
     emoji: "♒",
     finance:
-      "An unconventional income idea deserves serious attention today — write it down. Innovation is your edge; most people won't try what you're willing to attempt.",
+      "May brings a tech or community-driven income idea into sharp focus. Don't dismiss it as too unconventional — your best financial moves have always looked unusual from the outside.",
     stoic:
       "The impediment to action advances action. What stands in the way becomes the way. — Marcus Aurelius",
   },
@@ -142,7 +137,7 @@ const TODAY: Record<ZodiacSign, HoroscopeData> = {
     shortName: "Pisces",
     emoji: "♓",
     finance:
-      "Your intuition flags a financial decision someone close to you is making — speak up gently. Creative income from a passion project is closer to reality than you think.",
+      "May 1st asks you to dream AND plan — vision without structure is just fantasy. Write down one financial dream and one concrete step toward it. That gap is yours to close this month.",
     stoic:
       "Accept the things to which fate binds you, and love the people with whom fate brings you together. — Marcus Aurelius",
   },
