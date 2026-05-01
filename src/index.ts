@@ -15,6 +15,13 @@ function snapBase(req: Request): string {
   return `${isLocal ? "http" : "https"}://${host}`;
 }
 
+// Force no-cache so Vercel edge always serves fresh content
+app.use("*", async (c, next) => {
+  await next();
+  c.res.headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
+  c.res.headers.set("Pragma", "no-cache");
+});
+
 registerSnapHandler(
   app,
   async (ctx) => {
