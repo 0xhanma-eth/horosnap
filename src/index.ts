@@ -4,7 +4,7 @@ import { getMonthlyHoroscope, ZODIAC_SIGNS, CURRENT_DATE, type ZodiacSign } from
 
 const app = new Hono();
 
-const CREATOR_HANDLE = "@hanma";
+const CREATOR_HANDLE = "@hanma.base.eth";
 const CREATOR_PROFILE = "https://farcaster.xyz/hanma.base.eth";
 
 function snapBase(req: Request): string {
