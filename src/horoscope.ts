@@ -1,6 +1,6 @@
 // ============================================================
 // HOROSCOPE DATA — Update daily and push to GitHub
-// Current: May 2, 2026
+// Current: May 7, 2026
 // ============================================================
 
 export type ZodiacSign =
@@ -30,7 +30,7 @@ export interface HoroscopeData {
   stoic: string;
 }
 
-export const CURRENT_DATE = "May 2, 2026";
+export const CURRENT_DATE = "May 7, 2026";
 
 const TODAY: Record<ZodiacSign, HoroscopeData> = {
   aries: {
@@ -38,108 +38,108 @@ const TODAY: Record<ZodiacSign, HoroscopeData> = {
     shortName: "Aries",
     emoji: "♈",
     finance:
-      "Weekend energy pushes you to act fast — slow down deliberately. One financial review today reveals a leak you've been ignoring. Fix it before Monday.",
+      "Thursday sharpens your edge — a bold move made today before the week closes carries real momentum into the weekend. One email, one pitch, one decision. Don't postpone it.",
     stoic:
-      "Never let the future disturb you. You will meet it, if you have to, with the same weapons of reason which today arm you against the present. — Marcus Aurelius",
+      "You have power over your mind, not outside events. Realize this, and you will find strength. — Marcus Aurelius",
   },
   taurus: {
     name: "Taurus",
     shortName: "Taurus",
     emoji: "♉",
     finance:
-      "A Saturday investment in yourself — a book, a course, a skill — pays compound returns. Resist buying things; invest in becoming someone who earns more instead.",
+      "A financial opportunity that felt risky last week now looks more stable — revisit it with fresh eyes. Your patience has done its job; now let your judgment do the rest.",
     stoic:
-      "No person has the power to have everything they want, but it is in their power not to want what they don't have. — Seneca",
+      "The greatest wealth is to live content with little. — Plato",
   },
   gemini: {
     name: "Gemini",
     shortName: "Gemini",
     emoji: "♊",
     finance:
-      "A weekend conversation turns into an unexpected business idea — write it down immediately. Your network is your net worth today; one message could change your May.",
+      "Two deals, two conversations, two directions — pick one and go deep today. Your scattered energy is your only real obstacle. Focus is the multiplier missing from your finances.",
     stoic:
-      "Hang on to your youthful enthusiasms — you'll be able to use them better when you are older. — Seneca",
+      "Think of yourself as dead. You have lived your life. Now take what's left and live it properly. — Marcus Aurelius",
   },
   cancer: {
     name: "Cancer",
     shortName: "Cancer",
     emoji: "♋",
     finance:
-      "Home is where your wealth begins — a small domestic investment today saves big costs later. Protect your peace; financial anxiety resolved at home stays resolved everywhere.",
+      "A family or home financial matter needs a clear decision by end of week — don't carry it into the weekend unresolved. Clarity now saves ten times the emotional cost later.",
     stoic:
-      "Nothing is burdensome if taken lightly, and nothing need arouse one's irritation so long as one doesn't make it bigger than it is. — Seneca",
+      "We are more often frightened than hurt, and we suffer more in imagination than in reality. — Seneca",
   },
   leo: {
     name: "Leo",
     shortName: "Leo",
     emoji: "♌",
     finance:
-      "Saturday is your stage — a social event today plants seeds for Monday's opportunity. Don't discuss money problems publicly; project confidence even while building quietly.",
+      "Your reputation earns money today — someone is watching and evaluating before making an offer. Show up fully, deliver beyond expectations, and let the results speak louder than words.",
     stoic:
-      "It is the power of the mind to be unconquerable. — Seneca",
+      "Waste no more time arguing about what a good man should be. Be one. — Marcus Aurelius",
   },
   virgo: {
     name: "Virgo",
     shortName: "Virgo",
     emoji: "♍",
     finance:
-      "Use this Saturday to audit one financial habit — track where every dollar went in April. The numbers don't lie; let them guide your May decisions with clarity.",
+      "Thursday is your detail day — catch what others miss in a contract, report, or budget. Your analytical eye spots a discrepancy that saves or earns you significant money this week.",
     stoic:
-      "If a man knows not which port he sails, no wind is favorable. — Seneca",
+      "He who is brave is free. — Seneca",
   },
   libra: {
     name: "Libra",
     shortName: "Libra",
     emoji: "♎",
     finance:
-      "A financial imbalance you've been tolerating needs addressing today. Equal energy to earning and saving keeps your scales steady. Say no to one unnecessary expense this weekend.",
+      "A negotiation or financial agreement reaches a tipping point today — lean in rather than avoid. Your natural diplomacy is a financial asset; use it to close, not just to please.",
     stoic:
-      "Associate with those who will make a better man of you. Welcome those whom you yourself can improve. — Seneca",
+      "It is not that I am brave, it is that I value other things more than fear. — Marcus Aurelius",
   },
   scorpio: {
     name: "Scorpio",
     shortName: "Scorpio",
     emoji: "♏",
     finance:
-      "Hidden information about a financial matter surfaces this weekend — trust your instincts when something feels off. Research before committing any funds to a new opportunity.",
+      "A financial secret or hidden asset comes into focus — investigate quietly before acting loudly. Your instinct that something is undervalued is correct; move with precision, not urgency.",
     stoic:
-      "Retire into yourself as much as possible. Associate with people who are likely to improve you. — Seneca",
+      "How long are you going to wait before you demand the best for yourself? — Epictetus",
   },
   sagittarius: {
     name: "Sagittarius",
     shortName: "Sagitt.",
     emoji: "♐",
     finance:
-      "Adventure calls but your wallet needs boundaries — set a weekend spending cap and stick to it. The best experiences cost less than you think when you plan ahead.",
+      "An opportunity from a distant source — another city, culture, or field — arrives today. Expand your thinking beyond your immediate circle; your next financial breakthrough is outside your comfort zone.",
     stoic:
-      "Seek not the good in external things; seek it in yourself. — Epictetus",
+      "Don't explain your philosophy. Embody it. — Epictetus",
   },
   capricorn: {
     name: "Capricorn",
     shortName: "Capric.",
     emoji: "♑",
     finance:
-      "Even on weekends, your discipline compounds. A small action toward a long-term goal today — reviewing a portfolio, reading a financial report — keeps momentum alive.",
+      "Thursday is your closing day — wrap up the week's financial tasks before Friday distractions hit. A goal set clearly today becomes a result delivered by month's end.",
     stoic:
-      "First learn the meaning of what you say, and then speak. — Epictetus",
+      "No great thing is created suddenly. — Epictetus",
   },
   aquarius: {
     name: "Aquarius",
     shortName: "Aquar.",
     emoji: "♒",
     finance:
-      "A community or group you belong to holds a financial opportunity you haven't noticed yet. Look closer at the people around you — collaboration beats solo hustle today.",
+      "An innovative idea you've been sitting on deserves a real test today — put a small amount of resources behind it and measure the result. Thinking without testing is just daydreaming.",
     stoic:
-      "Seek freedom and you will become a slave to your desires. Seek discipline and you will find your liberty. — Epictetus",
+      "Make the best use of what is in your power, and take the rest as it happens. — Epictetus",
   },
   pisces: {
     name: "Pisces",
     shortName: "Pisces",
     emoji: "♓",
     finance:
-      "Your creative intuition is sharper than ever this Saturday — trust it in financial decisions too. A passion project edges closer to profitability; don't abandon it now.",
+      "Your empathy is a business asset today — someone needs exactly what you offer, and they'll pay fairly for it. Trust that being genuine and skilled is enough; you don't need to oversell.",
     stoic:
-      "He who laughs at himself never runs out of things to laugh at. — Epictetus",
+      "Receive without pride, relinquish without struggle. — Marcus Aurelius",
   },
 };
 
